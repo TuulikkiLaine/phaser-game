@@ -1,4 +1,4 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameWrapper', { preload: preload, create: create, update: update });
 
 var wall;
 var wall2;
@@ -39,11 +39,6 @@ function create() {
 
   cursors = game.input.keyboard.createCursorKeys();
 
-  var text = "Crappy Bird";
-  var style = { font: "22px Verdana", fill: "#ff0044", align: "center" };
-
-  var t = game.add.text(game.world.centerX-300, 0, text, style);
-
 }
 
 function update() {
@@ -52,7 +47,7 @@ function update() {
   game.physics.arcade.collide(bird, wall2, collisionHandler);
 
   if (cursors.up.isDown) {
-    bird.body.velocity.y = -100;
+    bird.body.velocity.y = -200;
 
   }
 
