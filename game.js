@@ -26,21 +26,20 @@ function create() {
 
   bird.body.collideWorldBounds = true;
   bird.body.bounce.set(1);
-  bird.body.gravity.y = 300;
+  bird.body.gravity.y = 200;
 
   wall = game.add.sprite(game.width-50,0,'wall');
   game.physics.enable(wall, Phaser.Physics.ARCADE);
-  wall.body.velocity.x = wallspeed;
-  wall.scale.y = game.rnd.integerInRange(1,10);
 
   wall2 = game.add.sprite(game.width-50,game.height-200,'wall2');
   game.physics.enable(wall2, Phaser.Physics.ARCADE);
-  wall2.body.velocity.x = wallspeed;
-  wall2.scale.y = game.rnd.integerInRange(1,10);
+  wall2.scale.y = 10;
+
+  randomWalls();
 
   cursors = game.input.keyboard.createCursorKeys();
 
-  var text = "Crappy flappy bird";
+  var text = "Crappy Bird";
   var style = { font: "22px Verdana", fill: "#ff0044", align: "center" };
 
   var t = game.add.text(game.world.centerX-300, 0, text, style);
@@ -53,13 +52,8 @@ function update() {
   game.physics.arcade.collide(bird, wall2, collisionHandler);
 
   if (cursors.up.isDown) {
-    bird.body.velocity.y = -300;
-    bird.body.acceleration.x = -20000;
-  }
+    bird.body.velocity.y = -100;
 
-  if (cursors.down.isDown) {
-    bird.body.velocity.y = 300;
-    bird.body.acceleration.x = -20000;
   }
 
   if (wall.x <= 0) {
@@ -70,19 +64,28 @@ function update() {
 
 function collisionHandler (obj1, obj2) {
   alert('you lost!');
-  obj1.x = 0;
-  obj1.y = 0;
+  initBird();
   randomWalls();
 }
 
 function randomWalls() {
   wall.x = game.width-50;
-  wall.y = 0
+  wall.y = 0;
   wall.scale.y = game.rnd.integerInRange(1,10);
   wall.body.velocity.x = wallspeed;
+  wall.body.velocity.y = 0;
 
   wall2.x = game.width-50;
-  wall2.y = game.height-200;
-  wall2.scale.y = game.rnd.integerInRange(1,10);
+  wall2.y = game.rnd.integerInRange(game.width-200,game.width-400);
   wall2.body.velocity.x = wallspeed;
+  wall2.body.velocity.y = 0;
+}
+
+function initBird() {
+  bird.body.velocity.x = 0;
+  bird.body.velocity.y = 0;
+  bird.body.acceleration.y = 0;
+  bird.body.acceleration.x = 0;
+  bird.y = 0;
+  bird.x = 0;
 }
