@@ -4,11 +4,13 @@ var wall;
 var wall2;
 var bird;
 var wallspeed = -200;
+var gameOver = false;
+var points = 0;
 
 function preload() {
 
-  //game.load.spritesheet('bird', 'birdsprite.png', 100,100,5);
-  game.load.image('bird', 'bird.png');
+  game.load.spritesheet('bird', 'bird100x82.png', 100,82,8);
+  //game.load.image('bird', 'bird.png');
   game.load.image('wall', 'wall.png');
   game.load.image('wall2', 'wall.png');
 
@@ -19,8 +21,8 @@ function create() {
   game.physics.startSystem(Phaser.Physics.ARCADE);
 
   bird = game.add.sprite(0, 50, 'bird');
-  //anim = bird.animations.add('fly');
-  //anim.play(10,true);
+  anim = bird.animations.add('fly');
+  anim.play(8,true);
 
   game.physics.enable(bird, Phaser.Physics.ARCADE);
 
@@ -39,10 +41,25 @@ function create() {
 
   cursors = game.input.keyboard.createCursorKeys();
 
+  Enter = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+
+  gameOverBox = game.add.group();
+  gameOverback = game.add.sprite(0, 0, "wall");
+  var style1 = { font: "46px Arial", fill: "#fff", align: "center" };
+  startText = game.add.text(50, 200, 'Game over! \n Press Enter to start a new game.', style1);
+  gameOverback.width = game.width;
+  gameOverback.height = game.height;
+  gameOverBox.add(gameOverback);
+  gameOverBox.add(startText);
+  gameOverBox.x = -10000;
+
+  var style2 = { font: "16px Arial", fill: "#fff",};
+  pointsText = game.add.text(0, 0, 'Points: '+points, style2);
+
 }
 
 function update() {
-
+  pointsText.text = 'Points: '+points;
   game.physics.arcade.collide(bird, wall, collisionHandler);
   game.physics.arcade.collide(bird, wall2, collisionHandler);
 
@@ -51,16 +68,22 @@ function update() {
 
   }
 
-  if (wall.x <= 0) {
+  if (wall.x <= -50) {
+    points += 1;
     randomWalls();
+  }
+
+  if (Enter.isDown && gameOver == true){
+    initBird();
+    randomWalls();
+    gameOverBox.x = -10000;
+    gameOver = false;
   }
 
 }
 
 function collisionHandler (obj1, obj2) {
-  alert('you lost!');
-  initBird();
-  randomWalls();
+  newGame();
 }
 
 function randomWalls() {
@@ -83,4 +106,13 @@ function initBird() {
   bird.body.acceleration.x = 0;
   bird.y = 0;
   bird.x = 0;
+}
+
+function newGame() {
+    gameOver = true;
+    gameOverBox.x = 0;
+    wall.body.velocity.x = 0;
+    wall2.body.velocity.x = 0;
+    bird.body.velocity.x = 0;
+    points = 0;
 }
