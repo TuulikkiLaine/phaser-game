@@ -22,7 +22,7 @@ function create() {
 
   bg = game.add.tileSprite(0, 0, 900, 700, 'bg');
 
-  bird = game.add.sprite(10, 50, 'bird');
+  bird = game.add.sprite(10, 10, 'bird');
   anim = bird.animations.add('fly');
   anim.play(8,true);
 
@@ -126,8 +126,8 @@ function initBird() {
   bird.body.velocity.y = 0;
   bird.body.acceleration.y = 0;
   bird.body.acceleration.x = 0;
-  bird.y = 0;
-  bird.x = 0;
+  bird.y = 50;
+  bird.x = 10;
 }
 
 function newGame() {
