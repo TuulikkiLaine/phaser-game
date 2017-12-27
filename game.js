@@ -68,7 +68,7 @@ function create() {
 function update() {
 
   if (bird.body.x > 10) {
-    bird.body.x-=3;
+    bird.body.x-=5;
   }
   bg.tilePosition.x -= 1;
 
