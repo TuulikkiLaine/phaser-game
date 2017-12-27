@@ -57,9 +57,11 @@ function create() {
   gameOverBox.add(startText);
   gameOverBox.x = -10000;
 
-  var style2 = { font: "22px Arial Black", fill: "#000",};
+  var style2 = { font: "22px Arial Black", fill: "#fff",};
   pointsText = game.add.text(0, 0, 'Points: '+points, style2);
   pointsText.fontWeight = 'bold';
+  pointsText.stroke = '#000000';
+  pointsText.strokeThickness = 4;
   pointsText.x = game.width - pointsText.width - 20;
   pointsText.y = game.height - pointsText.height;
 
