@@ -1,8 +1,1 @@
-body {
-  font-family: 'Bungee', cursive;
-}
-
-.wrapper {
-  margin:0 auto;
-  width: 900px;
-}
+h1,h2,h3{font-family:'Bungee', cursive}p,ul{font-family:Verdana}.wrapper{margin:0 auto;width:900px}

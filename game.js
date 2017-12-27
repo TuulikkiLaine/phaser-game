@@ -22,7 +22,7 @@ function create() {
 
   bg = game.add.tileSprite(0, 0, 900, 700, 'bg');
 
-  bird = game.add.sprite(0, 50, 'bird');
+  bird = game.add.sprite(10, 50, 'bird');
   anim = bird.animations.add('fly');
   anim.play(8,true);
 
@@ -60,12 +60,16 @@ function create() {
   var style2 = { font: "22px Arial Black", fill: "#000",};
   pointsText = game.add.text(0, 0, 'Points: '+points, style2);
   pointsText.fontWeight = 'bold';
-  pointsText.x = game.width - pointsText.width - 10;
+  pointsText.x = game.width - pointsText.width - 20;
   pointsText.y = game.height - pointsText.height;
 
 }
 
 function update() {
+
+  if (bird.body.x > 10) {
+    bird.body.x-=3;
+  }
   bg.tilePosition.x -= 1;
 
   pointsText.text = 'Points: '+points;
@@ -74,7 +78,10 @@ function update() {
 
   if (cursors.up.isDown) {
     bird.body.velocity.y = -200;
+  }
 
+  if (cursors.right.isDown) {
+    bird.body.x += 10;
   }
 
   if (wall.x <= -50) {
@@ -98,16 +105,18 @@ function collisionHandler (obj1, obj2) {
 }
 
 function randomWalls() {
+  var speedmodifier = Math.floor(points / 5) * 50
   wall.x = game.width-50;
   wall.y = 0;
   wall.scale.y = game.rnd.integerInRange(3,6);
-  wall.body.velocity.x = wallspeed;
+  wall.body.velocity.x = wallspeed - speedmodifier;
   wall.body.velocity.y = 0;
 
   wall2.x = game.width-50;
-  wall2.y = game.rnd.integerInRange(game.height/2+50,game.height-100);
-  wall2.body.velocity.x = wallspeed;
+  wall2.y = game.rnd.integerInRange(game.height/2+100,game.height-100);
+  wall2.body.velocity.x = wallspeed - speedmodifier;
   wall2.body.velocity.y = 0;
+  //console.log(wall.body.velocity.x)
 }
 
 function initBird() {
