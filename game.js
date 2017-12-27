@@ -108,13 +108,13 @@ function collisionHandler (obj1, obj2) {
 
 function randomWalls() {
   var speedmodifier = Math.floor(points / 5) * 50
-  wall.x = game.width-50;
+  wall.x = game.width;
   wall.y = 0;
   wall.scale.y = game.rnd.integerInRange(3,6);
   wall.body.velocity.x = wallspeed - speedmodifier;
   wall.body.velocity.y = 0;
 
-  wall2.x = game.width-50;
+  wall2.x = game.width;
   wall2.y = game.rnd.integerInRange(game.height/2+100,game.height-100);
   wall2.body.velocity.x = wallspeed - speedmodifier;
   wall2.body.velocity.y = 0;
