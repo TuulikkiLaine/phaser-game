@@ -126,7 +126,7 @@ function initBird() {
   bird.body.velocity.y = 0;
   bird.body.acceleration.y = 0;
   bird.body.acceleration.x = 0;
-  bird.y = 50;
+  bird.y = 10;
   bird.x = 10;
 }
 
