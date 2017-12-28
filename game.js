@@ -75,8 +75,8 @@ function update() {
   bg.tilePosition.x -= 1;
 
   pointsText.text = 'Points: '+points;
-  game.physics.arcade.collide(bird, wall, collisionHandler);
-  game.physics.arcade.collide(bird, wall2, collisionHandler);
+  game.physics.arcade.overlap(bird, wall, newGame);
+  game.physics.arcade.overlap(bird, wall2, newGame);
 
   if (cursors.up.isDown) {
     bird.body.velocity.y = -200;
@@ -100,10 +100,6 @@ function update() {
     pointsText.y = game.height - pointsText.height;
   }
 
-}
-
-function collisionHandler (obj1, obj2) {
-  newGame();
 }
 
 function randomWalls() {
